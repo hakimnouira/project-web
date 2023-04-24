@@ -56,7 +56,7 @@ if (
             
      
         
-        header('Location:../back/tables.php');
+        header('Location:../back/pages/tables.php');
     } else {
         $error = "Missing information";
         
