@@ -81,3 +81,8 @@
         }
     </style>
 </head>
+<form>
+  <label for="idf">ID du fournisseur:</label>
+  <input type="text" id="idf" name="idf">
+  <button type="submit">Rechercher</button>
+</form>

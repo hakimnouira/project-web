@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!ctype_digit($nombre)) {
-       
+        $error .= "nombre manquant";
+
         echo "<script type='text/javascript'>alert(`$error `);</script>";
     }
 

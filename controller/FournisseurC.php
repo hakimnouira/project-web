@@ -86,8 +86,20 @@
 				die('Erreur: '.$e->getMessage());
 			}
 		}
+		function rechercherFournisseur($recherche) {
+			$db = config::getConnexion();
+			$sql = "SELECT * FROM fs WHERE nom LIKE :recherche OR description LIKE :recherche";
+			try {
+				$query = $db->prepare($sql);
+				$query->bindValue(':recherche', "%$recherche%");
+				$query->execute();
+				$resultats = $query->fetchAll();
+				return $resultats;
+			} catch (Exception $e) {
+				die('Erreur: '.$e->getMessage());
+			}
+		}
 		
-
 		
 
 		

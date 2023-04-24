@@ -59,7 +59,7 @@
                         </label>
                     </td>
                     <td>
-						<input type="text" name="idfideliter" id="idfideliter"  value = "<?php echo $fr['Idfideliter']; ?>" disabled>
+						<input type="number" name="idfideliter" id="idfideliter"  value = "<?php echo $fr['Idfideliter']; ?>" disabled>
 					</td>
 				</tr>
 				<tr>
@@ -68,7 +68,7 @@
 						</label>
 					</td>
 					<td>
-						<input type="text" name="idf" id="idf" maxlength="20" value = "<?php echo $fr['Idf']; ?>">
+						<input type="number" name="idf" id="idf" maxlength="20" value = "<?php echo $fr['Idf']; ?>">
 					</td>
 				</tr>
                 <tr>
@@ -76,7 +76,7 @@
                         <label for="nombre">Nombre:
                         </label>
                     </td>
-                    <td><input type="text" name="nombre" id="nombre" maxlength="20" value = "<?php echo $fr['Nombre']; ?>"></td>
+                    <td><input type="number" name="nombre" id="nombre" maxlength="20" value = "<?php echo $fr['Nombre']; ?>"></td>
                 </tr>
                 
                 <tr>

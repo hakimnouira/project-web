@@ -22,17 +22,26 @@ if (
         !empty($_POST["quantite"]) &&
         !empty($_POST["description"])
     ) {
-        $fr = new Fournisseur(
-            $_POST['nom'],
-            $_POST['prix'],
-            $_POST['quantite'],
-            $_POST['description']
-        );
-        $frC->ajouterFournisseur($fr);
-        header('Location:afficherFournisseur.php');
+        $prix = $_POST['prix'];
+        $quantite = $_POST['quantite'];
+
+        // vérifier si le prix et la quantité sont supérieurs à zéro
+        if ($prix > 0 && $quantite > 0) {
+            $fr = new Fournisseur(
+                $_POST['nom'],
+                $prix,
+                $quantite,
+                $_POST['description']
+            );
+            $frC->ajouterFournisseur($fr);
+            header('Location:afficherFournisseur.php');
+        } else {
+            $error = "Le prix et la quantité doivent être supérieurs à zéro.";
+        }
     }
-    else
-        $error = "Missing information";
+    else {
+        $error = "Toutes les informations requises doivent être renseignées.";
+    }
 }
 
 
@@ -103,7 +112,7 @@ if (
             <td><input type="text" name="description" id="description" maxlength="20"></td>
         </tr>
        
-       
+    
         <tr>
             <td></td>
             <td>
