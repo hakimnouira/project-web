@@ -65,8 +65,9 @@ echo     $_POST['product_quantity'];
        
         echo "<br>";
         echo "t3ada";
+      //  C:\xampp\htdocs\5edma\back\pages\tables.php
         
-        header('Location:../back/tables.php');
+        header('Location:../back/pages/tables.php');
     } else {
         $error = "Missing information";
 }
