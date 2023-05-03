@@ -276,6 +276,7 @@ function drawChart() {
 }
 </script>
   </center>
+  
     </body>
 
 </html>

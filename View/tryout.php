@@ -95,7 +95,7 @@ $data = $livraisonc1->calculstat();
 <br>
 <br>
 <center>
-  <input type="text" id="search-input" placeholder="Search..." align="right" >
+  <input type="text" id="search-input" placeholder="Search..." >
   </center>
 
 <table border="1" width="80%" class="table-responsive p-0" align="right">
