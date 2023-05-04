@@ -109,44 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['insert'])) {
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link " href="ajout.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">sign up</span>
-          </a>
-        </li>
+        
         
        
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/profile.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
         
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-in.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">add log</span>
-          </a>
-        </li>
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
@@ -301,9 +267,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['insert'])) {
 
 
                   <tbody>
-                    <form method="POST"  onsubmit="return validateForm(event)" enctype="multipart/form-data">
-                      <label for="id_log">id_log:</label>
-                      <input type="text" id_log="id" name="id_log" ><br><br>
+                    <form method="POST"  onsubmit="return validateForm(event)" enctype="multipart/form-data" >
+                      <label for="id_log"></label>
+                      <input type="hidden" id_log="id" name="id_log" ><br><br>
                     
                       <label for="lastlog">lastlog:</label>
                       <input type="text" id="lastlog" name="lastlog" ><br><br>
@@ -372,6 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['insert'])) {
   // Si toutes les validations sont passées, renvoyer true pour soumettre le formulaire
   //return true;
 //}
+                      }
 </script>
                   </tbody>
                 </table>

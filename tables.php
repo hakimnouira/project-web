@@ -15,6 +15,13 @@
 
 <?php
   require_once 'connect.php';
+
+  
+
+  
+  
+
+  
 ?>
 
 
@@ -35,6 +42,12 @@
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+
+  <!-- Include the html2canvas library -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -87,43 +100,9 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link " href="ajout.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">sign up </span>
-          </a>
-        </li>
         
        
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/profile.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-in.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
+        
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
@@ -151,14 +130,16 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
               <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
+              <input type="text" id="search" class="form-control" placeholder="Type here...">
             </div>
+            
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
+                
               </a>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -258,60 +239,220 @@
 
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-              <table border="1" width="100%" class="table-responsive p-0">
-        <thead>
-          <th>id</th>
-          <th>first_name</th>
-          <th>last_name</th>
-          <th>gender</th>
-          <th>phone</th>
-          <th>email</th>
-          <th>type</th>
+              <!DOCTYPE html>
+<html>
+<head>
+	<title>Table Search</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	
+	<br>
+	<table border="1" width="100%" class="table-responsive p-0" id="clients">
+		<thead>
+    
+    <button onclick="sortTable()">Sort by First Name</button>
+    <button onclick="resetTable()">Sort by id</button>
+    <button onclick="exportToPDF()">Export to PDF</button>
 
-        </thead>
-        <tbody>
+    
+    
 
-          <?php
-            $sql = "SELECT * FROM clients ";
 
-            $query = $dbh->prepare($sql);
-            $query->execute();
-            $results=$query->fetchALL(PDO::FETCH_OBJ);
+    
+      
+    <th>id</th>
+    <th>first_name</th>
+    <th>last_name</th>
+    <th>gender</th>
+    <th>phone</th>
+    <th>email</th>
+    <th>password</th>
+    <th>type</th>
+    <th>
+    
+    </th>
+    <th>
+  </th>
+  
+  
+  </thead>
+  <tbody>
+    <?php
+      // Fetch data from the database
+      $sql = "SELECT * FROM clients";
+      $query = $dbh->prepare($sql);
+      $query->execute();
+      $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-            $cnt=1;
 
-            if($query->rowCount()>0){
-              foreach($results as $result)
-              
-            {
+     
 
-          ?>
-          <form action="update.php"method="post">
-          <input type="hidden" name="id" value="<?php echo htmlentities($result->id);?>"
-          <tr>
-            
-              <td><?php echo htmlentities($result->id);?></td>
-              <td><?php echo htmlentities($result->first_name);?></td>
-              <td><?php echo htmlentities($result->last_name);?></td>
-              <td><?php echo htmlentities($result->gender);?></td>
-              <td><?php echo htmlentities($result->phone);?></td>
-              <td><?php echo htmlentities($result->email);?></td>
-              <td><?php echo htmlentities($result->type);?></td>
-              
-              <td><input type="submit" value="edit" href="update.php" class="btn btn-primary btn-sm"></td>
-           
 
-              <td><a href="../pages/delete.php?del=<?php echo htmlentities($result->id);?>" class="btn btn-primary" onclick="return confirm('Do you really want to delete?')">delete</a></td>
-              
 
-          </tr>
+
+
+
+      
+
+      
+      $cnt = 1;
+
+      // Loop through the fetched data and display each record in a row of the HTML table
+      if ($query->rowCount() > 0) {
+        foreach ($results as $result) {
+    ?>
+          <form action="update.php" method="post">
+            <input type="hidden" name="id" value="<?php echo htmlentities($result->id);?>" />
+            <div>
+              <tr>
+                <td><?php echo htmlentities($result->id);?></td>
+                <td><?php echo htmlentities($result->first_name);?></td>
+                <td><?php echo htmlentities($result->last_name);?></td>
+                <td><?php echo htmlentities($result->gender);?></td>
+                <td><?php echo htmlentities($result->phone);?></td>
+                <td><?php echo htmlentities($result->email);?></td>
+                <td><?php echo htmlentities($result->password);?></td>
+                <td><?php echo htmlentities($result->type);?></td>
+                <td id="edit"><input type="submit" value="edit" href="update.php" class="btn btn-primary btn-sm"></td>
+                <td><a href="../pages/delete.php?del=<?php echo htmlentities($result->id);?>" class="btn btn-primary" onclick="return confirm('Do you really want to delete?')">delete</a></td>
+              </tr>
+            </div>
           </form>
-              <?php
+    <?php
+          $cnt++;
+        }
+      } else {
+        // Display a message if no records are found in the database
+        echo "<tr><td colspan='8'>No records found</td></tr>";
+      }
+      
+    ?>
+  </tbody>
+</table>
 
-              $cnt++;
-            }}
-            ?>
-        </tbody>
+
+<script>
+function exportToPDF() {
+  // Create a new jsPDF instance
+  const doc = new jsPDF();
+
+  // Get the HTML table element
+  const table = document.getElementById('clients');
+
+  // Remove the edit and delete cells from the table
+  const editCells = table.querySelectorAll('#edit');
+  editCells.forEach(cell => cell.parentNode.removeChild(cell));
+  const deleteCells = table.querySelectorAll('td:last-child');
+  deleteCells.forEach(cell => cell.parentNode.removeChild(cell));
+
+  // Use the html2canvas library to render the table as a canvas
+  html2canvas(table).then(canvas => {
+    // Get the canvas data as a base64 encoded PNG image
+    const imgData = canvas.toDataURL('image/png');
+
+    // Add the PNG image to the PDF document
+    doc.addImage(imgData, 'PNG', 10, 10, 180, 0);
+
+    // Save the PDF document
+    doc.save('clients.pdf');
+
+    // Reload the page to prevent any changes
+    window.location.reload(false);
+  });
+}
+
+</script>
+
+
+
+
+<script>
+var originalTable = document.getElementById("clients").innerHTML;
+
+  function sortTable() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("clients");
+    switching = true;
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[1];
+        y = rows[i + 1].getElementsByTagName("TD")[1];
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+  }
+
+
+  function resetTable() {
+  var table = document.getElementById("clients");
+  var rows = table.rows;
+
+  // sort the table based on the ID column (first column)
+  var switching = true;
+  while (switching) {
+    switching = false;
+    for (var i = 1; i < rows.length - 1; i++) {
+      var shouldSwitch = false;
+      var x = rows[i].getElementsByTagName("td")[0];
+      var y = rows[i + 1].getElementsByTagName("td")[0];
+      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+
+  // reset the button to "Sort by First Name"
+  var button = table.querySelector("thead th button");
+  button.innerHTML = "Sort by First Name";
+  button.onclick = sortTableByFirstName;
+}
+
+</script>
+
+<!-- JavaScript code for search functionality -->
+<script>
+  const searchInput = document.getElementById('search');
+  const tableRows = document.querySelectorAll('#clients tbody tr');
+
+  searchInput.addEventListener('keyup', () => {
+    const searchText = searchInput.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const rowData = row.textContent.toLowerCase();
+      if (rowData.includes(searchText)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+
+
 
 
               </table>
