@@ -7,6 +7,7 @@
 ?>
 
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,11 @@
 	
     </head>
     <body>
+
+      
+    <script type="text/javascript"
+ src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementIni
+t"></script>
 	<nav>
         <h1>Green Hub</h1>
         <div class="onglets">
@@ -27,12 +33,25 @@
             <a href="#commande">Commande</a>
             <a href="#livraison">Livraison</a>
             <a href="#contact">Contact</a>
+			<div id="google_translate_element"></div> 
+      
+            <script type="text/javascript"> 
+    function googleTranslateElementInit() { 
+      new google.translate.TranslateElement({pageLanguage: 'en'},
+ 'google_translate_element'); 
+    } 
+    </script> 
+      <a href=".php" class="pdf"><button type="button" > Export Pdf </button></a>
+    <script type="text/javascript"
+ src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementIni
+t"></script>
         </div>
+		
     </nav>
 
 		<button><a href="AjouterFournisseur.php">Ajouter un Fournisseur</a></button>
      	<hr>
-		<table border=1 align = 'center'>
+		<table border=1 align = 'center' id="fs">
 			<tr>
 				<th>Id</th>
 				<th>Nom</th>
@@ -64,6 +83,12 @@
 				}
 			?>
 		</table>
+		<script type="text/javascript"> 
+    function googleTranslateElementInit() { 
+      new google.translate.TranslateElement({pageLanguage: 'fr'},
+ 'google_translate_element'); 
+    } 
+    </script> 
 	</body>
 </html>
 <!DOCTYPE html>
@@ -81,8 +106,31 @@
         }
     </style>
 </head>
+<a href="pdf.php" class="pdf"><button type="button" > Export Pdf </button></a>
 <form>
   <label for="idf">ID du fournisseur:</label>
   <input type="text" id="idf" name="idf">
   <button type="submit">Rechercher</button>
 </form>
+<div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" id="search" class="form-control" placeholder="Type here...">
+              
+            </div>
+			<script>
+  const searchInput = document.getElementById('search');
+  const tableRows = document.querySelectorAll('#fs tbody tr');
+
+  searchInput.addEventListener('keyup', () => {
+    const searchText = searchInput.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const rowData = row.textContent.toLowerCase();
+      if (rowData.includes(searchText)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>

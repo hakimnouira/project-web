@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carte des fournisseurs</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API"></script>
+    <script>
+        function initMap() {
+            // Récupération de l'adresse du fournisseur depuis PHP
+            var adresse = "<?php echo $fournisseur->getAdresse(); ?>";
+            
+            // Appel à l'API Geocoding pour obtenir les coordonnées géographiques de l'adresse
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({address: adresse}, function(results, status) {
+                if (status === 'OK') {
+                    // Création de la carte centrée sur les coordonnées géographiques obtenues
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: results[0].geometry.location,
+                        zoom: 15
+                    });
+                    // Ajout d'un marqueur à la position de l'adresse
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <div id="map" style="height: 400px;"></div>
+</body>
+</html>
