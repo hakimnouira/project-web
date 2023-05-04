@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+/* center container in the middle */
+.popup .containershop {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  width: 520px;
+  height: 350px;
+  background: #F5F5F5;
+  box-shadow: 5px 5px 15px rgba(186, 126, 126, 0.5);
+  border-radius: 10px;
+}
+.popup p {
+  font-size: 0.6em;
+  color: #BA7E7E;
+  letter-spacing: 1px;
+}
+.popup h1 {
+  font-size: 1.2em;
+  color: #4E4E4E;
+  margin-top: -5px;
+}
+.popup h2 {
+  color: #C3A1A0;
+  margin-top: -5px;
+}
+.popup img {
+  width: 290px;
+  margin-top: 47px;
+}
+.popup .slideshow-buttons {
+  top: 70%;
+  display: none;
+}
+.popup .one, .popup .two, .popup .three, .popup .four {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E0C9CB;
+}
+.popup .one {
+  left: 22%;
+}
+.popup .two {
+  left: 27%;
+}
+.popup .three {
+  left: 32%;
+}
+.popup .four {
+  left: 37%;
+}
+.popup .productshop {
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  top: 10%;
+  left: 60%;
+}
+.popup .desc {
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 17px;
+  color: #4E4E4E;
+  font-size: 0.7em;
+  line-height: 1.6em;
+  margin-right: 25px;
+  text-align: justify;
+}
+.popup button {
+  background: #cda9ac;
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: -1px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #F5F5F5;
+  cursor: pointer;
+}
+.popup button:hover {
+  background: #BA7E7E;
+  transition: all 0.4s ease-in-out;
+}
+.popup .add {
+  width: 67%;
+}
+.popup .like {
+  width: 22%;
+}
+.popup .sizes {
+  display: grid;
+  color: #D9AAB7;
+  grid-template-columns: repeat(auto-fill, 30px);
+  width: 60%;
+  grid-gap: 4px;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.popup .sizes:hover {
+  cursor: pointer;
+}
+.popup .pick {
+  margin-top: 11px;
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+.popup .size {
+  padding: 9px;
+  border: 1px solid #E0C9CB;
+  font-size: 0.7em;
+  text-align: center;
+}
+.popup .size:hover {
+  background: #BA7E7E;
+  color: #F5F5F5;
+  transition: all 0.4s ease-in-out;
+}
+.popup .focus {
+  background: #BA7E7E;
+  color: #F5F5F5;
+}
+.popup footershop {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.popup footershop p {
+  letter-spacing: 3px;
+}
+.popup footershop a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.popup footershop a:hover {
+  color: #7d7d7d;
+}/*# sourceMappingURL=shop.css.map */

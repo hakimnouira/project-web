@@ -26,6 +26,10 @@
         <link rel="stylesheet" href="../css/background.css">
         
 
+        <link href="../css/Progress _Bar.css" rel="stylesheet" />
+        <script src="../js/Progress _Bar.js"></script>
+        <link href="../css/popup.css" rel="stylesheet" />
+        <script src="../js/popup.js"></script>
 
         <link rel="stylesheet" href="../css/CardHover.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +43,7 @@
         <link href="../css/bootstrap-icons.css" rel="stylesheet">
 
         <link href="../css/templatemo-tiya-golf-club.css" rel="stylesheet">
+        <link href="../css/shop.css" rel="stylesheet" />
         
 <!--
 
@@ -225,17 +230,37 @@ https://templatemo.com/tm-587-tiya-golf-club
     </div>
     <ul class="sidebar-list">
       <li class="sidebar-list-item">
-        <a href="#">
+        <a >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           <span>Home</span>
         </a>
+        <?php
+                                include '../../Controller/productC.php';
+                                $productC2 = new productC();
+                                $list2 = $productC2->listproductA();
+                                include '../../Controller/productCspec.php';
+                                $productCspec2 = new productCspec();
+             $i=0;
+        foreach ($list2 as $product) {
+          $i=$product['product_price']+$i;
+          
+          ?>
+        <a >
+          <img src="<?= $product['product_img']; ?> "  width="18" height="18" >
+          
+          <span><?= $product['product_name']; ?>                                <?= $product['product_price']; ?> </span>
+          <form action="../../View/updateproductB.php" method="post">
+                                 <input type="hidden" name="idpro" value= <?= $product['product_id']; ?> size="5"/> 
+                                  <button  type="sumbit" class="button-9" role="update" size="10" class="add_to_cart">remove</button> </form>
+        </a>
+     
+      <?php
+        }
+     ?>
       </li>
-     
-     
-     
     </ul>
     <div class="account-info">
-      
+      price :<?= $i ?>
       
       <button class="account-info-more">
       </button>
@@ -330,132 +355,21 @@ https://templatemo.com/tm-587-tiya-golf-club
                                 </div>
                                 
                                 <script src="../js/test.js"></script>
-                               <script >
-
-                 function mini_update(id) {
-  let row = document.getElementById(id);
-
-  let name = row.getElementsByClassName("product-cell image")[0].getElementsByTagName("span")[0].innerText;
-  let category = row.getElementsByClassName("product-cell category")[0].innerText;
-  let price = row.getElementsByClassName("product-cell price")[0].innerText;
-  let stock = row.getElementsByClassName("product-cell stock")[0].innerText;
-  let img = row.getElementsByClassName("product-cell image")[0].getElementsByTagName("img")[0].getAttribute('src');
-console.log(row.getElementsByClassName("product-cell image")[0].getElementsByTagName("img")[0].getAttribute('src'));
-  row.innerHTML = `
-  
-  
-
-  
-  
-      <input type="hidden" name="id" value="${id}">
-      <form enctype="multipart/form-data" name="testF" id="testF" action="../View/updateproduct.php" method="post" >
-      <div class="product-cell image"   >
-         
-      <input type="hidden"  name="product_id" value="${id}" size="3" readonly>
-       
-        <input type="text" name="product_img" value="${img}") >
-       
-
-        <span> <input type="text" name="product_name" value="${name}" size="8"> </span>
-     
-        
-      <div class="product-cell category"><input type="text" name="product_des" value="${category}" size="8"></div>
-      <div class="product-cell status-cell">
-                                    <span class="cell-label">Status:</span>
-                                    <span class="status active"> active</span>
-                                    </div>
-
-      <div class="product-cell price"><input type="text" name="product_price" value="${price}" size="8"></div>
-      <div class="product-cell stock"><input type="text" name="product_quantity" value="${stock}" size="8"></div>
-      <div class="product-cell">
-        
-        <button type="button" onclick="cancel_update(${id},'${img}','${name}','${category}',${price},${stock})">  Cancel</button>
-      </div>
-      <input  type="submit" name="sub" id="sub" value="Update"  >
-        </form>
-    
-  `;
-  row.getElementsByClassName("product-cell image")[0].getElementsByTagName("input")[0].onchange = function() {
-    let reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById("product-image").src = e.target.result;
-    }
-  
-    reader.readAsDataURL(this.files[0]);
-  };
-
-  row.getElementsByClassName("product-cell category")[0].getElementsByTagName("input")[0].focus();
-}
-
-function cancel_update(id,img,name,category,price,stock) {
-  let row = document.getElementById(id);
-  row.innerHTML = `
-    <div class="product-cell image">
-      <img src="${img}" alt="product">
-      <span>${name}</span>
-    </div>
-    <div class="product-cell category">${category}</div>
-    <div class="product-cell status-cell">
-      <span class="cell-label">Status:</span>
-      <span class="status active"> active</span>
-    </div>
-    <div class="product-cell price">${price}</div>
-    <div class="product-cell stock">${stock}</div>
-    <div class="product-cell price"><button class="button-9" role="update" onclick="mini_update(${id})">update</button></div>
-    <div class="product-cell price"><button class="button-9" role="button">delete</button></div>
-  `;
-}
-
-function  mini_add(){
-  let row = document.getElementById("demo11");
-  row.innerHTML += `
- 
-  
-                            <form  action="../View/addproduct.php" method="post" class="products-row" >
-                           
-       <button class="cell-more-button"  >
-         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-       </button>
-  
-         <div class="product-cell image" >
-         
-           <input  name="product_img" size="10">
-           <span>   <input  name="product_name" size="5">  </span>
-           
-         </div>
-         <input  type text name="product_des" style=" padding: 20px 10px; line-height: 28px ">
-       <div class="product-cell category"><span class="cell-label">  </span></div>
-       
-       <div class="product-cell status-cell">
-         <span class="cell-label">Status:</span>
-         <span class="status active"> active</span>
-       </div>
-       <div class="product-cell price"><span class="cell-label">price:</span> <input  name="product_price" size="10"> </div>
-       <div class="product-cell stock"><span class="cell-label">quantity:</span> <input  name="product_quantity" size="10">  </div>
-      
-       <div class="product-cell price"><span class="cell-label"></span>
-     
-       <input type="submit" name="sub" value="add" />
-
-    </form > 
-            
-           
                                
-                              
-          
-      </div>  `
-}
 
 
-  </script>
+
+
                                 
                                 <?php
-                                include '../../Controller/productC.php';
+                                include_once '../../Controller/productC.php';
                                 $productC = new productC();
                                 $list = $productC->listproduct();
-                                
+                                include_once '../../Controller/productCspec.php';
+                                $productCspec = new productCspec();
+             
         foreach ($list as $product) {
-       
+          $list1 = $productCspec->listproductspec($product['product_id'] );
         //  $imageURL = 'uploads/'.$product["product_img"];
         ?> 
          
@@ -476,23 +390,247 @@ function  mini_add(){
                                   </div>
                                   <div class="product-cell price"><span class="cell-label">price:</span><?= $product['product_price']; ?></div>
                                   
-                                 
-                                  <div class="product-cell price"><span class="cell-label"></span><button class="button-9" role="update" size="10" class="add_to_cart">buy</button></div>
+                                 <form action="../../View/updateproductA.php" method="post">
+                                 <input type="hidden" name="idpro" value= <?= $product['product_id']; ?> size="5"/> 
+                                  <div class="product-cell price"><span class="cell-label"></span><button  type="sumbit" class="button-9" role="update" size="10" class="add_to_cart">buy</button></div> </form>
                                   <div class="product-cell price"><span class="cell-label"></span>
                                   
                                   <input type="hidden" name="idpro" value= <?= $product['product_id']; ?> size="5"/> 
-                                     
+                                
+
+
+
                                     </div>
-                                      
-       
-                                </div>     
+                                    <div class="product-cell price"><span class="cell-label"></span>    
+                                    
+
+                       <?php
+
+$k=0;
+foreach ($list1 as $productspec  ) {
+  if(!empty($productspec)) {
+ $k=1;
+?>
+
+
+
+
+ 
+<div class="box">
+	<a class="button" href="#popup<?=$product['product_id'] ?>">Le</a>
+</div>
+
+<div id="popup<?=$product['product_id'] ?>" class="overlay">
+	<div class="popup">
+
+
+  
+
+  <div class="containershop">
+  <div class="images">
+    <img class="aaa" src= <?= $product['product_img']; ?> style=" width: 290px;
+  margin-top: 47px; height : 200px;  " />
+  </div>  
+  <div class="slideshow-buttons">
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+  </div>
+
+  <p class="pick">choose size</p>
+  <div class="sizes">
+<script>
+ 
+  function cc(){
+    a=document.getElementsByName("dimensions_ max2")[0].value;
+    b=document.getElementsByName("dimensions_ min2")[0].value;
+    c=document.getElementsByName("price")[0].value;
+    d=document.getElementsByName("wight")[0].value;
+    if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d)) {
+    alert("Please enter numeric values for dimensions, price, and weight.");
+    return false ;
+  }
+
+  // Error handling
+  if (a <= 0 || b <= 0 || c <= 0 || d <= 0) {
+    alert("Values must be greater than zero.");
+    return false ;
+  }
+return true ;
+    
+
+
+
+  }
+ 
+  </script>
+
+
+
+<datalist id="slider-list">
+  <option>0</option>
+  <option>10</option>
+  <option>20</option>
+  <option>30</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+</datalist>
+<main>
+  <div class="progress-wrapper">
+    <div class="progress">
+    </div>
+  </div>
+  <input type="range" id="slider" list="slider-list" style=" width : 200px" />
+</main>
+
+
+ 
+
+
+
+</div>
+
+    
+<div class="productshop">
+    <p>Women's Running Shoe</p>
+    <h1>Nike Epic React Flyknit</h1>
+    
+    <h2 id="price123" valuemax=<?=$productspec['price_max'] ?> valuemin= <?=$product['product_price'] ?>  value=<?=  ( $productspec['price_max'] + $product['product_price'] ) / 2;    ?> >$<?=  ( $productspec['price_max'] + $product['product_price'] ) / 2;    ?></h2>
+    <p class="desc" id="price321"  valuemax="<?=$productspec['dimensions_max'] ?>" valuemin="<?=$productspec['dimensions_min'] ?>"  valuew="<?=$productspec['weight'] ?>" > dimensions :  <?= ($productspec['dimensions_max'] + $productspec['dimensions_min'] )/2 ?>   </p>
+    
+    <div class="buttons">
+    <input type="hidden" value="<?=$productspec['id_spec'] ?> " name="id">
+      <button class="add" onclick="miniupdate2(<?=$productspec['price_max'] ?> , <?=$productspec['dimensions_max'] ?>,<?=$productspec['dimensions_min'] ?>,<?=$productspec['weight'] ?>)"> update</button>
+    
+      <button class="like" type="sumbit"><span>del</span></button>
+
+    </div>
+  </div>
+  <a class="close" href="#">&times;</a>
+		
+	</div>
+ 
+
+  </div> </div> 
+
+
+<?php
+} } if($k==0) {
+?>
+
+<div class="box">
+	<a class="button" href="#popup<?=$product['product_id'] ?>">do not have</a>
+</div>
+
+<div id="popup<?=$product['product_id'] ?>" class="overlay">
+	<div class="popup">
+
+
+  
+
+  <div class="containershop">
+  <div class="images">
+    <img class="aaa" src= <?= $product['product_img']; ?> style=" width: 290px;
+  margin-top: 47px; height : 200px;  " />
+  </div>  
+  <div class="slideshow-buttons">
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+  </div>
+
+  <p class="pick">choose size</p>
+  <div class="sizes">
+
+
+
+
+<datalist id="slider-list">
+  <option>0</option>
+  <option>10</option>
+  <option>20</option>
+  <option>30</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+</datalist>
+<main>
+  <div class="progress-wrapper">
+    <div class="progress">
+    </div>
+  </div>
+  <input type="range" id="slider" list="slider-list" style=" width : 200px" />
+</main>
+
+
+ 
+
+
+
+</div>
+<form  action="../../View/addproductspec.php" method="post" class="products-row" onsubmit="return cc()">
+<input type="hidden" name="id" value="<?=$product['product_id'] ?>"  />
+<div class="productshop">
+    <p>Women's Running Shoe</p>
+    <h1> price max :</h1>
+   <input type="text"  name="price" />
+    <p class="desc" name="dimensions_ max ">dimensions max   : <input type="text" name="dimensions_ max2"  >  <br>     dimensions min :  <input type="text" name="dimensions_ min2" > <br> wieght per cm <input type="text" name="wight" ></p>
+    <div class="buttons">
+      <button class="add" >Add </button>
+      <button class="like"><span></span></button>
+    </div>
+  </div>
+  </form> 
+  <a class="close" href="#">&times;</a>
+		
+	</div>
+
+  </div> </div> 
+
+<?php
+} 
+?>
+
+
+
+
+
+
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
                                 
        
                         <?php
         }
         
         ?>
-        
+        </div>
                             
      
                 

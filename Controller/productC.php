@@ -1,6 +1,6 @@
 <?php
-include '../config.php';
-include '../Model/product.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . "/5edma/config.php" ;
+include_once $_SERVER["DOCUMENT_ROOT"] . '/5edma/Model/product.php';
 
 class productC
 {
@@ -102,7 +102,7 @@ class productC
 
     function showproduct($id)
     {
-        $sql = "SELECT * from product where product_id = $id";
+        $sql = "SELECT * from products where product_id = $id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -114,4 +114,95 @@ class productC
             die('Error: ' . $e->getMessage());
         }
     }
+
+
+    public function listproductW($a,$b)
+    {
+        $sql = "SELECT * FROM products where $b like'%$a%' ";
+       
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            print_r($liste);
+            return $liste;
+        } catch (Exception $e) {
+            echo $e;
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listproductA()
+    {
+        $sql = "SELECT * FROM products where user=1 ";
+       
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+          
+            return $liste;
+        } catch (Exception $e) {
+            echo $e;
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+
+    function updateproductA($id)
+    {
+        try {   
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE products SET 
+                    user = 1
+                    
+                   
+                  
+                WHERE product_id = :id '
+            );
+         
+            $query->execute([
+                'id' => $id
+                
+            ]);
+           
+            
+           echo $query->rowCount() . " records UPDATED successfully <br>"; 
+        } catch (PDOException $e) {
+          echo $e;
+            $e->getMessage();
+          
+           
+        }
+    }
+    
+    function updateproductB($id)
+    {
+        try {   
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE products SET 
+                    user = 0
+                    
+                   
+                  
+                WHERE product_id = :id '
+            );
+         
+            $query->execute([
+                'id' => $id
+                
+            ]);
+           
+            
+           echo $query->rowCount() . " records UPDATED successfully <br>"; 
+        } catch (PDOException $e) {
+          
+            $e->getMessage();
+          
+           
+        }
+    }
+
+
+
 }
