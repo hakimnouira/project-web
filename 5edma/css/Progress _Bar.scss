@@ -1,0 +1,26 @@
+
+  
+  main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 8px;
+ 
+  
+  .progress-wrapper {
+    width: 400px;
+    height: 42px;
+    background-color: #f7f7f7;
+    outline: 1px solid gainsboro;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    
+   .progress {
+      width: 50%;
+      height: 42px;
+      background-color: royalblue;
+      transition: width 0.3s cubic-bezier(0,.96,0,.96);
+    }
+  }
+}
